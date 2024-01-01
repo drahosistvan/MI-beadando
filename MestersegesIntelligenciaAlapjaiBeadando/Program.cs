@@ -79,21 +79,14 @@ namespace MestersegesIntelligenciaAlapjaiBeadando
         }
         public override void Solve()
         {
-            AbsztraktÁllapot k = new FruitExchange(13, 46, 59);
-            Csúcs S = new Csúcs(k);
-            KeresőfávalKereső kereső = new MélységiKeresés();
-            Csúcs T = kereső.Keres(S);
-            if (T == null) { Console.WriteLine("Nincs megoldás!"); }
-            else
-            {
-                Console.WriteLine("Megvan a megoldás");
-                Csúcs Temp = T;
-                while (Temp != null)
-                {
-                    Console.WriteLine(Temp.GetÁllapot().ToString());
-                    Temp = Temp.GetSzülő();
-                }
-            }
+            Csúcs startCsúcs;
+            GráfKereső kereső;
+
+            startCsúcs = new Csúcs(new FruitExchange(13, 46, 59));
+            Console.WriteLine("A kereső egy 47 mélységi korlátos és emlékezetes backtrack.");
+            kereső = new BackTrack(startCsúcs, 47, true);
+            kereső.megoldásKiírása(kereső.Keresés());
+
             Console.ReadLine();
         }
 
@@ -120,21 +113,14 @@ namespace MestersegesIntelligenciaAlapjaiBeadando
             List<String> blueCells = ["0,0", "1,0", "1,2", "1,5", "2,2", "3,0", "3,1", "3,2", "3,4", "5,2"];
             List<String> redCells = ["0,4", "2,1", "2,3", "4,0", "4,1", "4,3", "4,4", "5,3", "5,6", "6,2", "6,3"];
 
-            AbsztraktÁllapot k = new JatekosLeptetoAllapot(7, 7, blueCells, redCells);
-            Csúcs S = new Csúcs(k);
-            KeresőfávalKereső kereső = new MélységiKeresés();
-            Csúcs T = kereső.Keres(S);
-            if (T == null) { Console.WriteLine("No solution was found!"); }
-            else
-            {
-                Console.WriteLine("Got the solution!");
-                Csúcs Temp = T;
-                while (Temp != null)
-                {
-                    Console.WriteLine(Temp.GetÁllapot().ToString());
-                    Temp = Temp.GetSzülő();
-                }
-            }
+            Csúcs startCsúcs;
+            GráfKereső kereső;
+
+            startCsúcs = new Csúcs(new JatekosLeptetoAllapot(7, 7, blueCells, redCells));
+            Console.WriteLine("A kereső egy 27 mélységi korlátos és emlékezetes backtrack.");
+            kereső = new BackTrack(startCsúcs, 27, true);
+            kereső.megoldásKiírása(kereső.Keresés());
+
             Console.ReadLine();
         }
 
