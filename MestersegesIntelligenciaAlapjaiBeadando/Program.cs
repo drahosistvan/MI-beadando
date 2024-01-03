@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace MestersegesIntelligenciaAlapjaiBeadando
+﻿namespace MestersegesIntelligenciaAlapjaiBeadando
 {
     internal class Program
     {
@@ -118,7 +116,7 @@ namespace MestersegesIntelligenciaAlapjaiBeadando
 
             startCsúcs = new Csúcs(new JatekosLeptetoAllapot(7, 7, blueCells, redCells));
             Console.WriteLine("A kereső egy 27 mélységi korlátos és emlékezetes backtrack.");
-            kereső = new BackTrack(startCsúcs, 27, true);
+            kereső = new MélységiKeresés(startCsúcs, true);
             kereső.megoldásKiírása(kereső.Keresés());
 
             Console.ReadLine();

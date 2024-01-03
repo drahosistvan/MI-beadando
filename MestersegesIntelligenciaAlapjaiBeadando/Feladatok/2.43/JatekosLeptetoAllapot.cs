@@ -21,6 +21,8 @@
             this.blueCells = blueCellPositions;
             this.redCells = redCellPositions;
 
+            this.previousMovement = Movement.Up;
+
             field = new Cell[rows, columns];
 
             for (int x = 0; x < columns; x++)
@@ -71,46 +73,46 @@
             // previous movement is always available
             List<Movement> availableMovements = [previousMovement];
 
-            switch (getCurrentPlayerCell().color)
-            {
-                // if cell is blue, then left movement compared to the previous one is allowed
-                case CellColor.Blue:
-                    switch (previousMovement)
-                    {
-                        case Movement.Up:
-                            availableMovements.Add(Movement.Left);
-                            break;
-                        case Movement.Down:
-                            availableMovements.Add(Movement.Right);
-                            break;
-                        case Movement.Left:
-                            availableMovements.Add(Movement.Down);
-                            break;
-                        case Movement.Right:
-                            availableMovements.Add(Movement.Up);
-                            break;
-                    }
-                    break;
-
-                // if cell is blue, then right movement compared to the previous one is allowed
-                case CellColor.Red:
-                    switch (previousMovement)
-                    {
-                        case Movement.Up:
-                            availableMovements.Add(Movement.Right);
-                            break;
-                        case Movement.Down:
-                            availableMovements.Add(Movement.Left);
-                            break;
-                        case Movement.Left:
-                            availableMovements.Add(Movement.Up);
-                            break;
-                        case Movement.Right:
-                            availableMovements.Add(Movement.Down);
-                            break;
-                    }
-                    break;
+            // if cell is blue, then left movement compared to the previous one is allowed
+            if (getCurrentPlayerCell().color == CellColor.Blue) {
+                switch (previousMovement)
+                {
+                    case Movement.Up:
+                        availableMovements.Add(Movement.Left);
+                        break;
+                    case Movement.Down:
+                        availableMovements.Add(Movement.Right);
+                        break;
+                    case Movement.Left:
+                        availableMovements.Add(Movement.Down);
+                        break;
+                    case Movement.Right:
+                        availableMovements.Add(Movement.Up);
+                        break;
+                }
             }
+
+            // if cell is blue, then right movement compared to the previous one is allowed
+            if (getCurrentPlayerCell().color == CellColor.Red)
+            {
+                switch (previousMovement)
+                {
+                    case Movement.Up:
+                        availableMovements.Add(Movement.Right);
+                        break;
+                    case Movement.Down:
+                        availableMovements.Add(Movement.Left);
+                        break;
+                    case Movement.Left:
+                        availableMovements.Add(Movement.Up);
+                        break;
+                    case Movement.Right:
+                        availableMovements.Add(Movement.Down);
+                        break;
+                }
+            }
+
+            Console.WriteLine("PreOp " + getCurrentPlayerCell().posX + "," + getCurrentPlayerCell().posY + " current cell color:" + getCurrentPlayerCell().color.ToString() + " Available" + string.Join(",", availableMovements.ConvertAll(f => f.ToString())) + " movement: " + movement.ToString() + " accepted? " +  (availableMovements.Contains(movement) ? "Y" : "N"));
 
             if (availableMovements.Contains(movement)) { return true; }
 
